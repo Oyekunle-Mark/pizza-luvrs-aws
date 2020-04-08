@@ -28,8 +28,11 @@ async function getForUser(username) {
 }
 
 async function getRecent() {
-  const recentPizzas = orderBy(pizzas, ['created'], ['desc']);
-  return values(recentPizzas).splice(0, 5);
+  return PizzaStore.findAll({
+    order: [['created', 'DESC']],
+    limit: 4,
+    raw: true,
+  }).then(debriefPizzas);
 }
 
 async function get(pizzaId) {
