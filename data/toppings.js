@@ -2,11 +2,6 @@ const Topping = require('../models/topping');
 const { sortBy, values } = require('lodash');
 const DynamoStore = require('./dynamoStore');
 
-async function getAll() {
-  const toppings = await dynamoStore.getAllItems('toppings');
-  return sortBy(toppings, ['order']);
-}
-
 function init() {
   create('Dough Crust', 'dough_crust.png', 'dough_crust.png', 1);
   create('Marinara Sauce', 'marinara_sauce.png', 'marinara_sauce.png', 2);
@@ -28,8 +23,8 @@ function init() {
 }
 
 async function getAll() {
-  const tops = values(toppings);
-  return sortBy(tops, ['order']);
+  const toppings = await dynamoStore.getAllItems('toppings');
+  return sortBy(toppings, ['order']);
 }
 
 async function create(name, previewImage, image, order) {
