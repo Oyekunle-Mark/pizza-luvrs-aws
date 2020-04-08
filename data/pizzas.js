@@ -15,12 +15,16 @@ async function create(name, toppings, img, username) {
 // for mocks that don't need pizza images saved
 function batchImport(name, toppings, imgUrl, username) {
   const pizza = new Pizza(name, toppings, imgUrl, username);
-  pizzas[pizza.id] = pizza;
+  PizzaStore.creat(prefPizza(pizza));
 }
 
 async function getForUser(username) {
-  const userPizzas = filter(pizzas, (pizza) => pizza.username === username);
-  return userPizzas;
+  return PizzaStore.findAll({
+    where: {
+      username,
+    },
+    raw: true,
+  }).then(debriefPizzas);
 }
 
 async function getRecent() {
