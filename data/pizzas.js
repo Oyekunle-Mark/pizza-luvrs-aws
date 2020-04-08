@@ -33,6 +33,24 @@ async function get(pizzaId) {
   return pizzas[pizzaId];
 }
 
+function prepPizza(pizza) {
+  return {
+    ...pizza,
+    toppings: JSON.stringify(pizza.toppings),
+  };
+}
+
+function debriefPizza(pizza) {
+  return {
+    ...pizza,
+    toppings: JSON.parse(pizza.toppings),
+  };
+}
+
+function debriefPizzas(pizza) {
+  return pizzas.map(debriefPizzas);
+}
+
 module.exports = {
   batchImport,
   create,
