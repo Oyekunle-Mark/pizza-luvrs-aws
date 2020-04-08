@@ -20,3 +20,19 @@ async function putItem(table, item) {
     });
   });
 }
+
+async function getAllItem(table) {
+  return new Promise((resolve, reject) => {
+    const params = {
+      TableName: table,
+    };
+
+    dynamodb.scan(params, (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data.items);
+      }
+    });
+  });
+}
