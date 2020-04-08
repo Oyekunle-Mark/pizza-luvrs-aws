@@ -36,3 +36,28 @@ async function getAllItem(table) {
     });
   });
 }
+
+async function getItem(table, idKey, id) {
+  return new Promise((resolve, reject) => {
+    const params = {
+      TableName: table,
+      Key: {
+        [idKey]: id,
+      },
+    };
+
+    dynamodb.get(params, (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data.Item);
+      }
+    });
+  });
+}
+
+module.exports = {
+  putItem,
+  getAllItem,
+  getItem,
+};
